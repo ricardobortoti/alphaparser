@@ -19,9 +19,11 @@ class ParserTest {
 
     @Test
     public void ParseOneRecordPerLine(){
-        String oneRecordPerLine = "Q Negociação C/V Tipo mercado Prazo Especificação do título Obs. (*) Quantidade Preço / Ajuste Valor Operação / Ajuste D/C\r\n"+
-                                  "1-BOVESPA C VISTA FII RIOB RC          RCRB11          CI 2 142,49 284,98 D\r\n"+
-                                  "1-BOVESPA V VISTA PETROBRAS          PETR4          CI 2 14,49 28,98 C\r\n";
+        String oneRecordPerLine = """
+                Q Negociação C/V Tipo mercado Prazo Especificação do título Obs. (*) Quantidade Preço / Ajuste Valor Operação / Ajuste D/C\r
+                1-BOVESPA C VISTA FII RIOB RC          RCRB11          CI 2 142,49 284,98 D\r
+                1-BOVESPA V VISTA PETROBRAS          PETR4          CI 2 14,49 28,98 C\r
+                """;
 
         String headerPattern = "Q Negociação C\\/V Tipo mercado Prazo Especificação do título Obs\\. \\(\\*\\) Quantidade Preço \\/ Ajuste Valor Operação \\/ Ajuste D\\/C";
         String linePattern = "^[0-9].*(D|C)$";
@@ -35,9 +37,11 @@ class ParserTest {
         values.add(new Value("Preco", 3,"(\\b ([\\d,.]+)\\b)(\\b ([\\d,.]+)\\b)(\\b ([\\d,.]+)\\b)"));
         values.add(new Value("Valor Operacao", 5,"(\\b ([\\d,.]+)\\b)(\\b ([\\d,.]+)\\b)(\\b ([\\d,.]+)\\b)"));
 
-        Config config = new Config(values);
-        config.addDelimiter(new Delimiter(linePattern, DelimiterTypeEnum.PerLine));
-        config.addDelimiter(new Delimiter(headerPattern, DelimiterTypeEnum.Header));
+        List<Delimiter> delimiters = new ArrayList<>();
+        delimiters.add(new Delimiter(linePattern, DelimiterTypeEnum.PerLine));
+        delimiters.add(new Delimiter(headerPattern, DelimiterTypeEnum.Header));
+
+        Config config = new Config(values, delimiters);
 
         Parser parser = new Parser(config,reader);
 

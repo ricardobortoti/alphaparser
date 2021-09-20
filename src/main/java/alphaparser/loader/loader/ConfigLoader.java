@@ -33,10 +33,7 @@ public class ConfigLoader {
     }
 
     private Config loadConfig() {
-        Config config = new Config(loadValues());
-        loadDelimiters().forEach(d -> config.addDelimiter(d));
-
-        return config;
+        return new Config(loadValues(), loadDelimiters());
     }
 
     private List<Value> loadValues() {
