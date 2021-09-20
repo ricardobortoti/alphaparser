@@ -8,15 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Config {
-    private List<Delimiter> delimiters = new ArrayList<>();
-    private List<Value> values = new ArrayList<>();
+    private List<Delimiter> delimiters;
+    private List<Value> values;
 
-    public void addDelimiter(Delimiter delimiter){
-        delimiters.add(delimiter);
-    }
-
-    public Config(List<Value> values) {
+    public Config(List<Value> values, List<Delimiter> delimiters)
+    {
         this.values = values;
+        this.delimiters = delimiters;
     }
 
     public Delimiter checkMatchingDelimiter(String candidateLine){
