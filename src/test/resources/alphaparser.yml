@@ -1,0 +1,16 @@
+values:
+    - id: 'Compra/Venda'
+      pattern: '(?s)((?<=BOVESPA)(.*?)(?=VISTA|FRACIONARIO*?))'
+    - id: 'Ativo'
+      pattern: '(?s)((?<=FRACIONARIO|VISTA)(.*?)(?=[0-9]+))'
+    - id: 'Quantidade'
+      pattern: '(\b ([\d,.]+)\b)(\b ([\d,.]+)\b)(\b ([\d,.]+)\b)'
+    - id: 'Preco'
+      pattern: '(\b ([\d,.]+)\b)(\b ([\d,.]+)\b)(\b ([\d,.]+)\b)'
+    - id: 'Valor Operacao'
+      pattern: '(\b ([\d,.]+)\b)(\b ([\d,.]+)\b)(\b ([\d,.]+)\b)'
+delimiters:
+    - pattern: '^[0-9].*(D|C)$'
+      type: PerLine
+    - pattern: 'Q Negociação C\/V Tipo mercado Prazo Especificação do título Obs\. \(\*\) Quantidade Preço \/ Ajuste Valor Operação \/ Ajuste D\/C'
+      type: Header
